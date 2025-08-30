@@ -1,4 +1,7 @@
 import "@shopify/shopify-app-remix/adapters/node";
+import { Shopify } from "@shopify/shopify-api";
+import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlite";
+
 import {
   ApiVersion,
   AppDistribution,
@@ -8,6 +11,14 @@ import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memor
 
 const sessionStorage1 = new MemorySessionStorage();
 
+Shopify.Context.initialize({
+  API_KEY: process.env.SHOPIFY_API_KEY,
+  API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
+  SCOPES: process.env.SCOPES.split(","),
+  HOST_NAME: process.env.HOST.replace(/https?:\/\//, ""),
+  IS_EMBEDDED_APP: true,
+  SESSION_STORAGE: sessionStorage,
+});
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
@@ -15,7 +26,7 @@ const shopify = shopifyApp({
   scopes: process.env.SCOPES?.split(","),
   appUrl: process.env.SHOPIFY_APP_URL || "",
   authPathPrefix: "/auth",
-  sessionStorage: new PrismaSessionStorage(prisma),
+  sessionStorage: new SQLiteSessionStorage("./database.sqlite"),
   distribution: AppDistribution.AppStore,
   future: {
     unstable_newEmbeddedAuthStrategy: true,
