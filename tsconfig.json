@@ -17,5 +17,7 @@
     "target": "ES2022",
     "baseUrl": ".",
     "types": ["node"]
-  }
+  },
+  "skipLibCheck": true
 }
+
