@@ -34,9 +34,9 @@ export default function App() {
 
       <div className={styles.index}>
         <div className={styles.content}>
-          <h1 className={styles.heading}>A short heading about Digital Guruji</h1>
+          <h1 className={styles.heading}>Digital Guruji</h1>
           <p className={styles.text}>
-            A tagline about Digital Guruji that describes your value proposition.
+            Your one-stop solution for all digital marketing needs.
           </p>
           {showForm && (
             <Form className={styles.form} method="post" action="/auth/login">
