@@ -1,29 +1,24 @@
 import "@shopify/shopify-app-remix/adapters/node";
-import { Shopify } from "@shopify/shopify-api";
+import { shopifyApi, ApiVersion } from "@shopify/shopify-api";
 import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlite";
+import { shopifyApp, AppDistribution } from "@shopify/shopify-app-remix/server";
 
-import {
-  ApiVersion,
-  AppDistribution,
-  shopifyApp,
-} from "@shopify/shopify-app-remix/server";
-import { MemorySessionStorage } from "@shopify/shopify-app-session-storage-memory";
-
-const sessionStorage1 = new MemorySessionStorage();
-
-Shopify.Context.initialize({
-  API_KEY: process.env.SHOPIFY_API_KEY,
-  API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
-  SCOPES: process.env.SCOPES.split(","),
-  HOST_NAME: process.env.HOST.replace(/https?:\/\//, ""),
-  IS_EMBEDDED_APP: true,
-  SESSION_STORAGE: sessionStorage,
+// Initialize Shopify API context
+const shopifyContext = shopifyApi({
+  apiKey: process.env.SHOPIFY_API_KEY,
+  apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
+  scopes: process.env.SCOPES?.split(",") || [],
+  hostName: process.env.HOST?.replace(/https?:\/\//, ""),
+  isEmbeddedApp: true,
+  sessionStorage: new SQLiteSessionStorage("./database.sqlite"),
 });
+
+// Initialize Shopify App
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
   apiVersion: ApiVersion.January25,
-  scopes: process.env.SCOPES?.split(","),
+  scopes: process.env.SCOPES?.split(",") || [],
   appUrl: process.env.SHOPIFY_APP_URL || "",
   authPathPrefix: "/auth",
   sessionStorage: new SQLiteSessionStorage("./database.sqlite"),
