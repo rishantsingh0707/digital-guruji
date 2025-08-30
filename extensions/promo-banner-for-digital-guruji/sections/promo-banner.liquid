@@ -1,0 +1,39 @@
+<div id="promo-banner" style="background:#111; color:#fff; text-align:center; padding:12px 20px; font-size:16px; position:relative;">
+  <p style="margin:0;">{{ section.settings.text }}</p>
+  <button onclick="document.getElementById('promo-banner').style.display='none'" 
+          style="position:absolute; right:10px; top:5px; background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">
+    ✖
+  </button>
+</div>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Banner text",
+      "default": "🎉 Free Shipping on All Orders! 🎉"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

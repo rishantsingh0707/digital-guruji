@@ -1,0 +1,18 @@
+<div class="promo-banner" style="background: #111; color: #fff; text-align: center; padding: 10px;">
+  <p>{{ block.settings.text }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "target": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Banner text",
+      "default": "🎉 Welcome to Digital Guruji! 🎉"
+    }
+  ]
+}
+{% endschema %}
