@@ -1,10 +1,28 @@
-<div id="promo-banner" style="background:#111; color:#fff; text-align:center; padding:12px 20px; font-size:16px; position:relative;">
+<section id="promo-banner" 
+         style="background:{{ section.settings.bg_color }}; 
+                color:{{ section.settings.text_color }}; 
+                text-align:center; 
+                padding:12px 20px; 
+                font-size:16px; 
+                position:relative; 
+                width:100vw; 
+                margin-left:calc(-50vw + 50%);">
+  
   <p style="margin:0;">{{ section.settings.text }}</p>
+  
   <button onclick="document.getElementById('promo-banner').style.display='none'" 
-          style="position:absolute; right:10px; top:5px; background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">
+          style="position:absolute; 
+                 right:10px; 
+                 top:5px; 
+                 background:none; 
+                 border:none; 
+                 color:{{ section.settings.text_color }}; 
+                 font-size:18px; 
+                 cursor:pointer;">
     ✖
   </button>
-</div>
+</section>
+
 
 {% schema %}
 {
